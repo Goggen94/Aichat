@@ -29,6 +29,16 @@
         #send_btn {
             padding: 10px 20px;
         }
+        #filebox {
+            margin-top: 20px;
+        }
+        #file_list {
+            list-style: none;
+            padding: 0;
+        }
+        #file_list li {
+            padding: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +49,13 @@
     <input type="text" id="user_input" placeholder="Type your message here...">
     <button id="send_btn">Send</button>
 
+    <div id="filebox">
+        <h3>Files on External USB</h3>
+        <ul id="file_list"></ul>
+    </div>
+
     <script>
+        // Handle chat messages
         $('#send_btn').click(function() {
             var user_message = $('#user_input').val();
             if (user_message.trim() !== "") {
@@ -61,6 +77,33 @@
             } else {
                 alert("Please enter a message before sending.");
             }
+        });
+
+        // Load files from external USB
+        function loadFiles() {
+            $.ajax({
+                type: 'GET',
+                url: '/files',
+                success: function(response) {
+                    var file_list = $('#file_list');
+                    file_list.empty();
+                    if (response.files && response.files.length > 0) {
+                        response.files.forEach(function(file) {
+                            file_list.append('<li>' + file + '</li>');
+                        });
+                    } else {
+                        file_list.append('<li>No files found.</li>');
+                    }
+                },
+                error: function() {
+                    alert('Failed to load files from external USB.');
+                }
+            });
+        }
+
+        // Load files on page load
+        $(document).ready(function() {
+            loadFiles();
         });
     </script>
 </body>
