@@ -51,7 +51,7 @@
                     success: function(response) {
                         $('#messages').append('<li><strong>You:</strong> ' + user_message + '</li>');
                         $('#messages').append('<li><strong>AI:</strong> ' + response.response + '</li>');
-                        $('#user_input').val('');  
+                        $('#user_input').val('');
                         $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
                     },
                     error: function() {
