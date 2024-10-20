@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Fetch the OpenAI API key from the environment variable
-openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_key = os.getenv('KEYKEY')
 
 @app.route("/", methods=["GET"])
 def index():
